@@ -1,0 +1,45 @@
+here are some useful tools and tricks to help you on the pwn challenges
+
+nm : list symbols from files -> useful when you want to find the address of a function or variable
+                                for your exploit
+
+python -c 'print("A" * 200)' -> useful when you want to buffer a lot of characters without typing them all
+
+echo -e 'aaaaaa' -> used to buffer the input into a pipe
+
+ltrace -> find what functions are called (if you are successfull with the buffer overflow
+          you should see a call to system)
+
+strace -> useful to find out where the program segfaulted
+          example : if you have a buffer with a lot of 'A' and strace has a `si_addr=0x41414141`
+	  it means you have overwritten the return address with the characters 'AAAA'
+	  'A' corresponding to the byte 0x41
+	  Changing those 'A' with the address of a function will call this function instead of
+	  segfaulting directly
+
+buffering stdin:
+    when a program asks you to enter an input from stdin, you have the opportunity to input the
+    output of other programs into it with pipes
+
+    example:
+       echo "hello" | ./bof1
+    this will be the same as running `./bof1` and entering `hello` afterwards
+
+inputing addresses:
+    let's say you have a function at address 0x0040117b and you want to write it's address in memory
+    to execute it (after overwriting the return address in a buffer overflow for example).
+    The bytes will be stored in little-endian and thus should be put last bytes first
+
+    with `echo` it would look like this
+        echo -e "\x7b\x11\x40\x00"
+    (the `-e` is necessary to change the \x to the actual bytes)
+
+    with `python` it would look like this
+        python -c 'print("\x7b\x11\x40\x00")'
+
+printf vulnerability tricks:
+    %p -> will display a value as an address
+    %s -> will display the string pointed by the value (value is interpreted as an address)
+    %5$p -> will display the 5th value as an address (same as doing '%p %p %p %p %p' and keeping only
+                                                      the last value)
+    %n -> will write the number of written characters to the value (value is interpreted as an address)
