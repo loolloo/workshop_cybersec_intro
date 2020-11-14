@@ -1,0 +1,37 @@
+Chall1 :
+
+Is this ascii upside down?
+
+This file is gibberish, maybe we can look at the bytes and figure out a pattern
+
+useful commands:
+
+xxd :
+  `xxd -p` to get the bytes as hex
+  `xxd -p -c 100` to get the bytes as hex in one line
+  `xxd -p -r` to change the hex back to bytes
+
+hexdump :
+  `hexdump -C` to visualize the bytes of a binary file
+
+And another one I won't tell you about ;)
+
+
+
+Chall2 :
+
+base(4^3) * (4^2)
+
+This file looks encrypted... What tools could to decrypt it?
+
+Hint : there is a useful command in bash that can reverse this encryption
+
+
+
+Chall3 :
+
+Encryption-ception
+
+This one is going to be tough! My sources tell me that a certain roman emperor interfered
+with the encrypted message. Thankfully, the encryption behind it is a simpler version of
+the one used in the last challenge.
