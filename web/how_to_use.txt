@@ -1,0 +1,14 @@
+To launch the web challenges, you need to have python3 and php installed.
+
+Then you can just launch each challenge using it's shell script
+
+example:
+    ./chall1.sh
+will launch the first web challenge. If you don't have firefox installed, just
+use the url the script gives you in your browser of choice.
+
+The html or php service will run in the background so don't forget to close them when you are done.
+That will be done with ./close_server.sh
+
+If you want to play by the rules, don't ever look at the sources in .files/
+In real world ctf challenges, you won't have access to the server's local files directly

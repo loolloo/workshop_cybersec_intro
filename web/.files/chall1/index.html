@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Challenge 1</title>
+    <meta charset="UTF-8">
+  </head>
+  <body oncontextmenu="javascript:alert('right clicking is blocked ;)'); return false;">
+    Hello User!
+    <script>
+      var password = prompt("Please enter the password");
+
+      if (password != atob("VGhpc19wYXNzd29yZF9pc191bmNyYWNrYWJsZV9tdWhhaGFoYWhhaGE=")) {
+          document.body.innerHTML = "Wrong password! I won't let you check the source >:)";
+          document.oncontextmenu = document.body.oncontextmenu;
+      } else {
+          document.body.innerHTML = atob("SGVsbG8gdXNlciEKCllvdXIgZmxhZyBpcyB3ZWJ7RmluZF90aGVfc291cmNlX2hhY2tlcl9hbmRfdGhlX3dheV9zaGFsbF9iZV9jbGVhcmVkfQ==");
+      }
+    </script>
+  </body>
+</html>
