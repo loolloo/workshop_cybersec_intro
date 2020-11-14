@@ -1,0 +1,11 @@
+Here are some useful tools for steganography:
+
+ - tools you already have:
+
+file : identify what kind of file you are working with (useful when file is a binary with no extension)
+strings : can be used to extract readable strings from a binary
+
+ - tools you can download:
+
+exiftool : see/edit the metadata of files
+steghide : embed/extract files into images
