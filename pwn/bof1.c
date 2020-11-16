@@ -14,7 +14,7 @@ void give_me_a_shell()
 {
   printf("Congratulation Hacker!\n");
   printf("I will give you a shell as a reward\n");
-  system("/bin/sh");
+  system("cd .files/bof1/ && /bin/sh");
 }
 
 void my_putstr()

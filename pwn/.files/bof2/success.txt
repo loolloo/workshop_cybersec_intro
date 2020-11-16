@@ -1,0 +1,6 @@
+Hello, you successfully got a shell!
+You can get the flag int flag.txt, but avoid spoiling yourself the other challenges.
+
+In real world ctf, those challenge will allow you to either get a shell as another user
+(when done on a ssh server for example) or they will allow you to get a shell on a remote machine
+using something like netcat (`nc`).

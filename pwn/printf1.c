@@ -1,12 +1,13 @@
 //
-// pwn1.c
+// printf1.c
 //
 
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-// compilation : gcc pwn1.c -o pwn1
+// compilation : gcc printf1.c -o printf1
 // goal : faire afficher le message de succès sans changer le binaire
 //        ou changer la valeur des variables a l'aide d'un débugger
 
@@ -38,16 +39,18 @@ int auth()
     printf("\n");
 
     if (is_password_valid(username, password))
-	is_valid = 1;
+        is_valid = 1;
 
     return is_valid;
 }
 
 int main(int ac, char **av)
 {
-    if (auth())
-	printf("SUCCESS!!! You are authenticated\n");
-    else
-	printf("Failure! Your username or password is not correct\n");
+    if (auth()) {
+        printf("SUCCESS!!! You are authenticated\n");
+        system("cd .files/printf1/ && /bin/sh");
+    } else {
+        printf("Failure! Your username or password is not correct\n");
+    }
     return 0;
 }
