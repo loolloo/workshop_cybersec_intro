@@ -1,0 +1,118 @@
+Here are some useful tools and tricks you can use to reverse engineer these binaries:
+
+What you already have
+
+strings :
+    - Show the human readable strings in a binary. Can sometimes find info on a password
+
+objdump :
+    - show the raw assembly in a readable format
+      (using debuggers like gdb or radare2 are better in general)
+
+What you may need to download
+
+ltrace :
+    - Show wich library calls are made with their argument. Can help you understand the program
+      without looking into it first
+
+The debuggers : These tools will allow you to explore the binaries' assembly and allow you to
+                make changes while
+
+gdb :
+    - using it with gdb-peda will make this debugger look prettier and add some useful tools.
+      launch the program :
+
+      `gdb ./rev1` -> launch the gdb session on the ./rev1 binary
+
+      some useful commands :
+
+      `set disassembly-flavor intel` -> will make the instruction more readable on binaries with intel architecture
+      `disass <function name>` -> will disassemble the function
+      `info functions` -> list all function names
+      `info registers` -> list all registers with their current value
+
+      `x/s 0x400000` -> examine the string pointed by the address
+      `x/64x 0x400000` -> examine 64 hexadecimals at the address
+
+      `break <function name>` -> add a breakpoint at the start of this function
+      `break 0x400000` -> add a breakpoint at the designated address
+      `run "aaaa" "bbbb"` -> run the program with argv[1] = "aaaa" and argv[2] = "bbbb"
+      `c` -> continue running after hitting a breakpoint
+
+      `q` -> exit the program
+
+radare2 :
+    - it is recommended to install it from the official github to have a version up to date
+      (instructions on how to install https://rada.re/n/radare2.html)
+      launch the program :
+
+      `r2 ./rev1` -> launch radare2 in normal mode
+      `r2 -d ./rev1 aaaa bbbb` -> launch radare2 in debug mode with argv[1] = "aaaa" and argv[2] = "bbbb"
+
+      some useful commands :
+
+      `?` -> will show all possible commands
+      `a?` -> will show all commands starting with `a`
+
+      `aaa` -> analyse all functions and symbols automatically (good to always use first)
+      `eco bright` -> have a brighter color pallet (you can also play with the other themes listed with `eco`)
+      `afl` -> list all functions
+      `s main` -> set the current pointer to main
+
+      print commands :
+
+      `pdf` -> print the disassembly of the function your pointer is currently at
+      `pdf @main` -> print main from anywhere (`@` will execute the pdf as if the cursor was at `main`)
+      `px @0x40000` -> print the data at the designated address as a hexdump
+      `ps @0x40000` -> print the data at the designated address as a string
+      `pv8 @0x40000` -> print the data as the content of the address as a 8 bit variable (useful to print addresses)
+      `pc` -> print the data as a c buffer (useful when using binary data in programs)
+      `pc?` -> will show you how to print the data for a lot of languages (if you don't want to use c)
+
+      debugging :
+
+      `ood` / `doo` -> will restart the program in debug mode
+      `db @0x40000` -> will set a breakpoint at an address
+      `dc` -> will continue execution until a breakpoint is met
+
+      `dr` / `drr` -> print information on the registers
+      `afvd` -> print information on the local variables (of the functions)
+      `dr rax=0x40000` -> change the value of a register to whatever you want (in this case `rax` to `0x40000`)
+
+      visual modes (if you want to go deeper) :
+
+      `?` -> this help command is implemented in all of these modes
+
+      `VV` -> visual funcion graph (Very useful when analysing complex functions)
+      `V` -> interactive hexdump (can show data in different modes if you hit `P`)
+      `Vv` -> interactive function list (you can interact with the assembly with tab in this mode)
+      `v` -> pannel mode (will show a disassembly and other things in pannels that can be interacted with the mouse)
+
+      `q` -> exit the program
+
+some tips:
+     Whenever you are stuck with a tool and you don't know how to do what you want to do. Don't hesitate to google
+     things (especially for radare2 and gdb).
+
+     When debugging, you can execute any function if you want to. Here is how :
+         first set a breakpoint in main :
+             gdb -> `break main`
+             r2  -> `db main`
+
+         run and continue the program until the breakpoint is hit :
+             gdb -> `run`
+             r2  -> `dc`
+
+         find the address of the function you want to execute :
+             gdb -> `info functions`
+             r2  -> `afl`
+
+         change the register `rip` to the address of the function you want to execute :
+             gdb -> `set $rip=0x40000`
+             r2  -> `dr rip=0x40000`
+
+         continue the programs execution :
+             gdb -> `c`
+             r2  -> `dc`
+
+     you can play with this trick in rev2 for example
