@@ -6,6 +6,7 @@ from sys import argv
 flag_hashes = [
     'a414bccc40a40462a42a97187561d9b2',
     '3ccba02404bbdc4c4386f55d8c072a0c',
+    '368c0ecbd9328719af12b8cd6d810142',
     'fdc445bfded41f427ec06c9d9135be80'
 ]
 
