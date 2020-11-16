@@ -1,0 +1,11 @@
+Hint:
+
+You can try using another http request method.
+
+You can either edit and resend the request in the browser, using the
+network tab of your inspect element window.
+
+Or you can use curl this way:
+
+curl http://my_url/ -X POST
+(this will make a POST request instead of the default GET)
