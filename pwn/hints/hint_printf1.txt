@@ -1,0 +1,7 @@
+You can try this payload if you want to understand how to control
+the adress you are writing to
+
+echo 'AAAABBBBCCCCDDDD %20$p %21$p' | ./printf1
+
+You can find the address of the global variable with `nm printf1`
+now you only need to write something into it
